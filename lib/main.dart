@@ -104,7 +104,6 @@ class _AudioClassifierPageState extends State<AudioClassifierPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 60),
-              // Cabeçalho Minimalista
               const Text(
                 'Classificador',
                 style: TextStyle(fontSize: 32, fontWeight: FontWeight.w800, color: Color(0xFF2D3436)),
@@ -115,8 +114,6 @@ class _AudioClassifierPageState extends State<AudioClassifierPage> {
               ),
               
               const Spacer(),
-
-              // Área do Visualizador / Círculo Central
               _buildMicrophoneArea(),
 
               const SizedBox(height: 20),
@@ -126,8 +123,6 @@ class _AudioClassifierPageState extends State<AudioClassifierPage> {
               ),
 
               const Spacer(),
-
-              // Card de Resultado (Apenas se houver dado)
               _buildResultPanel(),
               
               const SizedBox(height: 40),
@@ -144,7 +139,7 @@ class _AudioClassifierPageState extends State<AudioClassifierPage> {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          // Ondas de animação simples quando gravando
+        
           if (_gravando)
             ...[1, 2].map((e) => TweenAnimationBuilder(
                   tween: Tween(begin: 1.0, end: 2.0),
@@ -160,7 +155,7 @@ class _AudioClassifierPageState extends State<AudioClassifierPage> {
                     );
                   },
                 )),
-          // Botão Principal
+        
           Container(
             width: 100,
             height: 100,
