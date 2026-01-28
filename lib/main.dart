@@ -26,7 +26,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
 class AudioClassifierPage extends StatefulWidget {
   const AudioClassifierPage({super.key});
 
