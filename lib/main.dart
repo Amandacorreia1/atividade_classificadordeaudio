@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
-        scaffoldBackgroundColor: const Color(0xFFF8F9FA), // Fundo quase branco
+        scaffoldBackgroundColor: const Color(0xFFF8F9FA),
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.blueAccent,
           background: const Color(0xFFF8F9FA),
@@ -26,7 +26,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
 class AudioClassifierPage extends StatefulWidget {
   const AudioClassifierPage({super.key});
 
@@ -182,6 +181,43 @@ class _AudioClassifierPageState extends State<AudioClassifierPage> {
   }
 
   Widget _buildResultPanel() {
+    IconData? iconData;
+    Color iconColor = Colors.blueAccent;
+    double iconSize = 80;
+
+    switch (_resultadoClasse) {
+      case 'CIMA':
+        iconData = Icons.arrow_upward_rounded;
+        iconColor = Colors.blueAccent;
+        break;
+      case 'BAIXO':
+        iconData = Icons.arrow_downward_rounded;
+        iconColor = Colors.blueAccent;
+        break;
+      case 'ESQUERDO':
+        iconData = Icons.arrow_back_rounded;
+        iconColor = Colors.blueAccent;
+        break;
+      case 'DIREITO':
+        iconData = Icons.arrow_forward_rounded;
+        iconColor = Colors.blueAccent;
+        break;
+      case 'LIGADO':
+        iconData = Icons.power_settings_new_rounded;
+        iconColor = Colors.greenAccent;
+        break;
+      case 'DESLIGADO':
+        iconData = Icons.power_off_rounded;
+        iconColor = Colors.redAccent;
+        break;
+      case 'Background Noise':
+        iconData = Icons.volume_off_rounded;
+        iconColor = Colors.grey;
+        break;
+      default:
+        iconData = null;
+    }
+
     return AnimatedOpacity(
       duration: const Duration(milliseconds: 500),
       opacity: _resultadoClasse.isEmpty ? 0 : 1,
@@ -201,8 +237,21 @@ class _AudioClassifierPageState extends State<AudioClassifierPage> {
         ),
         child: Column(
           children: [
-            const Text("COMANDO DETECTADO", style: TextStyle(fontSize: 12, color: Colors.grey, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 10),
+            const Text(
+              "COMANDO DETECTADO",
+              style: TextStyle(fontSize: 12, color: Colors.grey, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 16),
+
+            if (iconData != null)
+              Icon(
+                iconData,
+                size: iconSize,
+                color: iconColor,
+              ),
+
+            if (iconData != null) const SizedBox(height: 16),
+
             Text(
               _resultadoClasse.isEmpty ? "-" : _resultadoClasse,
               style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF2D3436)),
@@ -218,7 +267,10 @@ class _AudioClassifierPageState extends State<AudioClassifierPage> {
               ),
             ),
             const SizedBox(height: 10),
-            Text("${(_confianca * 100).toStringAsFixed(0)}% de precisão", style: const TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.w600)),
+            Text(
+              "${(_confianca * 100).toStringAsFixed(0)}% de precisão",
+              style: const TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.w600),
+            ),
           ],
         ),
       ),
